@@ -33,8 +33,14 @@ export default function HomePage() {
           <Link href="/skills" className="card">
             <h3>Skills</h3>
           </Link>
+          <Link href="/blogs" className="card">
+            <h3>Blog</h3>
+          </Link>
           <Link href="/contact-me-server-form" className="card">
-            <h3>Contact Me</h3>
+            <h3>Contact (Server Form)</h3>
+          </Link>
+          <Link href="/contact-me" className="card">
+            <h3>Contact (API)</h3>
           </Link>
         </div>
       </section>

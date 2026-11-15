@@ -1,15 +1,51 @@
 "use client";
 
+import { useCallback, useEffect, useState } from "react";
 import { useActionState } from "react";
 import { saveContact } from "@/app/contact-me-server-form/actions";
+import { loadContactDraft, saveContactDraft } from "@/lib/contact-draft";
 
 const initialState = { status: "idle" };
 
+const emptyValues = { name: "", email: "", message: "" };
+
 export default function ContactForm() {
-  const [state, formAction, isPending] = useActionState(saveContact, initialState);
+  const [values, setValues] = useState(emptyValues);
+
+  useEffect(() => {
+    let active = true;
+
+    loadContactDraft().then((draft) => {
+      if (active) {
+        setValues(draft);
+      }
+    });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const handleSave = useCallback(async (prevState, formData) => {
+    const result = await saveContact(prevState, formData);
+
+    if (result.status === "success") {
+      setValues(emptyValues);
+      saveContactDraft(emptyValues);
+    }
+
+    return result;
+  }, []);
+
+  const [state, formAction, isPending] = useActionState(handleSave, initialState);
+
+  function update(field, event) {
+    const next = { ...values, [field]: event.target.value };
+    setValues(next);
+    saveContactDraft(next);
+  }
 
   const errors = state.status === "error" ? state.errors : {};
-  const fieldKey = state.clearedAt ?? "new";
 
   return (
     <form className="contact-form" action={formAction} noValidate>
@@ -24,10 +60,11 @@ export default function ContactForm() {
       <div className="field">
         <label htmlFor="name">Name</label>
         <input
-          key={`name-${fieldKey}`}
           id="name"
           name="name"
           type="text"
+          value={values.name}
+          onChange={(event) => update("name", event)}
           className={errors.name ? "input-invalid" : ""}
         />
         {errors.name && <p className="field-error">{errors.name}</p>}
@@ -36,10 +73,11 @@ export default function ContactForm() {
       <div className="field">
         <label htmlFor="email">Email</label>
         <input
-          key={`email-${fieldKey}`}
           id="email"
           name="email"
           type="email"
+          value={values.email}
+          onChange={(event) => update("email", event)}
           className={errors.email ? "input-invalid" : ""}
         />
         {errors.email && <p className="field-error">{errors.email}</p>}
@@ -48,9 +86,10 @@ export default function ContactForm() {
       <div className="field">
         <label htmlFor="message">Message</label>
         <textarea
-          key={`message-${fieldKey}`}
           id="message"
           name="message"
+          value={values.message}
+          onChange={(event) => update("message", event)}
           className={errors.message ? "input-invalid" : ""}
         />
         {errors.message && <p className="field-error">{errors.message}</p>}
