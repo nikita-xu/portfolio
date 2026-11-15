@@ -9,9 +9,7 @@ export default function ContactMePage() {
     <section className="content">
       <h1 className="page-title">Contact (Server Form)</h1>
       <p className="page-intro">
-        Have a question or just want to say hi? This form sends your message
-        through a Server Action and saves it into the same inbox as the API
-        form, which lives at /contact-me.
+        Send me a message here if you have questions or just want to say hi!
       </p>
       <ContactForm />
     </section>

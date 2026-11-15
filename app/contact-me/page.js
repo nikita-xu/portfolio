@@ -9,9 +9,7 @@ export default function ContactMePage() {
     <section className="content">
       <h1 className="page-title">Contact (API)</h1>
       <p className="page-intro">
-        This form sends your message through the REST API endpoint
-        (/api/contact) and saves it into the same inbox as the server form,
-        which lives at /contact-me-server-form.
+        Send me a message here if you have questions or just want to say hi!
       </p>
       <ContactApiForm />
     </section>

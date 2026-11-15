@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "name": "Nikita Xu",
+    "email": "wxu2@scu.edu",
+    "message": "Testing API",
+    "submittedAt": "2026-11-14T17:42:15-08:00"
+  },
+  {
+    "name": "Nikita Xu",
+    "email": "wxu2@scu.edu",
+    "message": "Testing Server Form",
+    "submittedAt": "2026-11-14T17:42:29-08:00"
+  }
+]

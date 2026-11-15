@@ -1,25 +1,27 @@
 import Link from "next/link";
+import HeroSpotlight from "@/components/HeroSpotlight";
 
 export default function HomePage() {
   return (
     <>
-      <section className="hero">
-        <p className="hero-greeting">Hi, I&apos;m Nikita</p>
-        <h1 className="hero-title">Welcome to my portfolio</h1>
-        <p className="hero-text">
-          I am a Business Analytics graduate student at Santa Clara University
-          who enjoys building things with code. This site is where I share my
-          projects, my creative work, and how to get in touch with me.
-        </p>
-        <div className="button-row">
-          <Link href="/projects" className="button">
-            View My Projects
-          </Link>
-          <Link href="/contact-me-server-form" className="button button-secondary">
-            Contact Me
-          </Link>
+      <HeroSpotlight>
+        <div className="container">
+          <div className="spotlight-content">
+            <span className="accent-line" aria-hidden="true" />
+            <h1 className="hero-name">Nikita Xu.</h1>
+            <p className="hero-tagline">Marketing. Analytics. Motion.</p>
+            <p className="hero-categories">Sports / Motorsport / Brand / Analytics.</p>
+            <div className="hero-links">
+              <Link href="/projects" className="hero-link">
+                Explore my work &rarr;
+              </Link>
+              <Link href="/about-me" className="hero-link hero-link-muted">
+                About me
+              </Link>
+            </div>
+          </div>
         </div>
-      </section>
+      </HeroSpotlight>
 
       <section className="home-section">
         <h2 className="section-title">Explore the site</h2>
