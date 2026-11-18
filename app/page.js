@@ -29,6 +29,9 @@ export default function HomePage() {
           <Link href="/about-me" className="card">
             <h3>About Me</h3>
           </Link>
+          <Link href="/experience" className="card">
+            <h3>Experience</h3>
+          </Link>
           <Link href="/projects" className="card">
             <h3>My Projects</h3>
           </Link>
