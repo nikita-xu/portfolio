@@ -49,7 +49,7 @@ export default function ExperienceList() {
   }
 
   return (
-    <div className="timeline">
+    <div className="xp-timeline">
       {state.entries.map((entry) => (
         <ExperienceCard key={entry.id} entry={entry} />
       ))}

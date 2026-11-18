@@ -1,1 +1,88 @@
-[]
+[
+  {
+    "id": 1,
+    "organization": "Uber",
+    "role": "Industry Practicum",
+    "location": "",
+    "category": "Work",
+    "summary": "Collaborated with Uber Product Management and Procurement teams to define product requirements and build a prototype of an internal vendor recommendation portal, including a Python ranking algorithm and UI/UX for 500+ vendors across business functions.",
+    "startDate": "2026-01",
+    "endDate": "2026-06",
+    "highlights": [
+      "Defined product requirements and prototyped an internal vendor recommendation portal with a Python ranking algorithm and UI/UX for 500+ vendors.",
+      "Integrated AI via API to turn unstructured vendor data into recommendations on cost, quality, risk, and supplier performance."
+    ],
+    "skills": [],
+    "image": "",
+    "createdAt": "2026-11-17T20:15:54-08:00"
+  },
+  {
+    "id": 2,
+    "organization": "Santa Clara University",
+    "role": "Master of Science in Business Analytics",
+    "location": "Santa Clara, CA",
+    "category": "Education",
+    "summary": "Graduate study in business analytics at the Leavey School of Business.",
+    "startDate": "2025-09",
+    "endDate": "2026-12",
+    "highlights": [],
+    "skills": [],
+    "image": "",
+    "createdAt": "2026-11-17T20:15:54-08:00"
+  },
+  {
+    "id": 3,
+    "organization": "Porsche Motorsport Asia Pacific Ltd.",
+    "role": "Marketing Intern",
+    "location": "",
+    "category": "Work",
+    "summary": "Supported motorsport event marketing for Porsche Carrera Cup Asia, coordinating with external agencies on promotional materials and creating VIP guest experiences for race weekends.",
+    "startDate": "2024-07",
+    "endDate": "2024-08",
+    "highlights": [
+      "Supported motorsport event marketing and coordinated with external agencies on promotional materials, contributing to 20% growth in Porsche Carrera Cup Asia 2025 driver recruitment.",
+      "Elevated off-track guest engagement touch-points by creating VIP experience and hospitality brochures for race weekends, achieving 95%+ positive feedback.",
+      "Streamlined internal processes across functions by leveraging ThinkCell and company-preferred tools to create data visualization templates and master slides."
+    ],
+    "skills": [
+      "photo-video"
+    ],
+    "image": "/images/captured-moments/motorsports-02.jpg",
+    "createdAt": "2026-11-17T20:15:54-08:00"
+  },
+  {
+    "id": 4,
+    "organization": "HOKA",
+    "role": "Marketing Intern",
+    "location": "",
+    "category": "Work",
+    "summary": "Conducted market research and performance analysis to support Go-To-Market and event strategies, and independently led the planning and execution of a HOKA x TREK running and cycling event.",
+    "startDate": "2023-07",
+    "endDate": "2023-08",
+    "highlights": [
+      "Conducted market research on launches, social trends, and customer behavior to support Go-To-Market and event strategies.",
+      "Consolidated and analyzed fragmented monthly data across 35+ events and 600+ product try-ons, tracking sales, participation, conversion rates, and customer feedback.",
+      "Supported management of 25+ affiliated running communities with 4,600+ members, strengthening outreach and brand engagement.",
+      "Independently led planning and execution of a HOKA x TREK running and cycling event, driving cross-brand collaboration and omni-channel marketing."
+    ],
+    "skills": [
+      "photo-video"
+    ],
+    "image": "/images/event-execution/f855261e607f9cbfe4f929d9bf0bd869.jpg",
+    "createdAt": "2026-11-17T20:15:54-08:00"
+  },
+  {
+    "id": 5,
+    "organization": "Santa Clara University",
+    "role": "Bachelor of Science in Commerce",
+    "location": "Santa Clara, CA",
+    "category": "Education",
+    "summary": "Major in Marketing, with minors in International Business and French & Francophone Studies.",
+    "startDate": "2021-09",
+    "endDate": "2025-06",
+    "highlights": [],
+    "skills": [],
+    "image": "",
+    "createdAt": "2026-11-17T20:15:54-08:00"
+  }
+]
