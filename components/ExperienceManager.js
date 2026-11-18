@@ -254,7 +254,7 @@ function ExperienceManagerTools({ token }) {
         </div>
 
         <div className="field">
-          <label htmlFor="experience-summary">Summary</label>
+          <label htmlFor="experience-summary">Summary (optional)</label>
           <textarea
             id="experience-summary"
             value={form.summary}

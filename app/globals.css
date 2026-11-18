@@ -859,6 +859,11 @@ a.tag:hover {
   color: var(--text-muted);
   font-size: 0.95rem;
   margin: 0.9rem 1.25rem 0.75rem;
+  white-space: pre-line;
+}
+
+.xp-details-inner > :first-child {
+  margin-top: 0.9rem;
 }
 
 .xp-highlights {
