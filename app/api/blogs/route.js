@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createPost, listPosts, validateBlogPost } from "@/lib/blogs";
 import { readJsonBody } from "@/lib/http";
+import { checkAdminToken } from "@/lib/authorize";
 
 export async function GET() {
   const result = await listPosts();
@@ -13,6 +14,12 @@ export async function GET() {
 }
 
 export async function POST(request) {
+  const auth = checkAdminToken(request);
+
+  if (!auth.ok) {
+    return NextResponse.json({ errors: { form: auth.message } }, { status: auth.status });
+  }
+
   const parsed = await readJsonBody(request);
 
   if (parsed.failure) {

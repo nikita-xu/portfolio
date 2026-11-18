@@ -2,14 +2,16 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { createBlogPost, deleteBlogPost, fetchBlogs } from "@/lib/blog-api";
+import AdminGate from "@/components/AdminGate";
+import { createBlogPost, deleteBlogPost, fetchBlogs, updateBlogPost } from "@/lib/blog-api";
 
-export default function BlogManager() {
+function BlogManagerTools({ token }) {
   const [state, setState] = useState({ status: "loading" });
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [editingSlug, setEditingSlug] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
-  const [published, setPublished] = useState(false);
+  const [message, setMessage] = useState("");
   const [errors, setErrors] = useState({});
 
   const load = useCallback(() => {
@@ -31,21 +33,46 @@ export default function BlogManager() {
     load();
   }
 
+  function startEdit(post) {
+    setEditingSlug(post.slug);
+    setTitle(post.title);
+    setContent(post.content);
+    setMessage("");
+    setErrors({});
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function cancelEdit() {
+    setEditingSlug(null);
+    setTitle("");
+    setContent("");
+    setErrors({});
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
     setIsSaving(true);
-    setPublished(false);
+    setMessage("");
     setErrors({});
 
-    const result = await createBlogPost({ title, content });
+    const values = { title, content };
+    const result = editingSlug === null
+      ? await createBlogPost(values, token)
+      : await updateBlogPost(editingSlug, values, token);
 
     if (result.ok) {
       setTitle("");
       setContent("");
-      setPublished(true);
+      setMessage(editingSlug === null ? "Blog post published!" : "Blog post updated!");
+      setEditingSlug(null);
       await load();
     } else {
       setErrors(result.errors);
+
+      if (result.status === 401) {
+        window.sessionStorage.removeItem("admin-token");
+        window.location.reload();
+      }
     }
 
     setIsSaving(false);
@@ -55,21 +82,29 @@ export default function BlogManager() {
     if (!window.confirm("Delete this blog post?")) return;
     setErrors({});
 
-    const result = await deleteBlogPost(slug);
+    const result = await deleteBlogPost(slug, token);
 
     if (result.ok) {
+      if (editingSlug === slug) {
+        setEditingSlug(null);
+        setTitle("");
+        setContent("");
+      }
       await load();
     } else {
       setErrors(result.errors);
+
+      if (result.status === 401) {
+        window.sessionStorage.removeItem("admin-token");
+        window.location.reload();
+      }
     }
   }
 
   return (
     <>
       <form className="contact-form admin-form" onSubmit={handleSubmit} noValidate>
-        {published && (
-          <p className="form-success">Blog post published!</p>
-        )}
+        {message && <p className="form-success">{message}</p>}
 
         {errors.form && <p className="field-error">{errors.form}</p>}
 
@@ -99,8 +134,14 @@ export default function BlogManager() {
         </div>
 
         <button type="submit" className="button" disabled={isSaving}>
-          {isSaving ? "Publishing..." : "Publish Post"}
+          {isSaving ? "Saving..." : editingSlug === null ? "Publish Post" : "Save Changes"}
         </button>
+
+        {editingSlug !== null && (
+          <button type="button" className="button button-secondary" onClick={cancelEdit}>
+            Cancel edit
+          </button>
+        )}
       </form>
 
       <section className="detail-section">
@@ -129,13 +170,14 @@ export default function BlogManager() {
                   </h3>
                   <p>/blogs/{post.slug}</p>
                 </div>
-                <button
-                  type="button"
-                  className="button button-danger"
-                  onClick={() => handleDelete(post.slug)}
-                >
-                  Delete
-                </button>
+                <div className="admin-actions">
+                  <button type="button" className="button button-secondary" onClick={() => startEdit(post)}>
+                    Edit
+                  </button>
+                  <button type="button" className="button button-danger" onClick={() => handleDelete(post.slug)}>
+                    Delete
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -143,4 +185,8 @@ export default function BlogManager() {
       </section>
     </>
   );
+}
+
+export default function BlogManager() {
+  return <AdminGate>{(token) => <BlogManagerTools token={token} />}</AdminGate>;
 }

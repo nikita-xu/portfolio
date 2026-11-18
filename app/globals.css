@@ -900,6 +900,43 @@ a.tag:hover {
   margin: 0;
 }
 
+.admin-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.admin-message {
+  max-width: 560px;
+  white-space: pre-wrap;
+}
+
+.tag-unread {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.admin-lock {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+.experience-current {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.experience-current input {
+  width: auto;
+  accent-color: var(--accent);
+}
+
 @media (max-width: 860px) {
   .navbar-rule,
   .navbar-links {
