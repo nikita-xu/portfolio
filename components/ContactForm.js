@@ -15,7 +15,7 @@ export default function ContactForm() {
   useEffect(() => {
     let active = true;
 
-    loadContactDraft().then((draft) => {
+    loadContactDraft("server").then((draft) => {
       if (active) {
         setValues(draft);
       }
@@ -31,7 +31,7 @@ export default function ContactForm() {
 
     if (result.status === "success") {
       setValues(emptyValues);
-      saveContactDraft(emptyValues);
+      saveContactDraft("server", emptyValues);
     }
 
     return result;
@@ -42,7 +42,7 @@ export default function ContactForm() {
   function update(field, event) {
     const next = { ...values, [field]: event.target.value };
     setValues(next);
-    saveContactDraft(next);
+    saveContactDraft("server", next);
   }
 
   const errors = state.status === "error" ? state.errors : {};

@@ -14,7 +14,7 @@ export default function ContactApiForm() {
   useEffect(() => {
     let active = true;
 
-    loadContactDraft().then((draft) => {
+    loadContactDraft("api").then((draft) => {
       if (active) {
         setValues(draft);
       }
@@ -28,7 +28,7 @@ export default function ContactApiForm() {
   function update(field, event) {
     const next = { ...values, [field]: event.target.value };
     setValues(next);
-    saveContactDraft(next);
+    saveContactDraft("api", next);
   }
 
   async function handleSubmit(event) {
@@ -48,7 +48,7 @@ export default function ContactApiForm() {
       if (response.ok) {
         setIsSent(true);
         setValues(emptyValues);
-        saveContactDraft(emptyValues);
+        saveContactDraft("api", emptyValues);
       } else {
         setErrors(data.errors || {});
       }
