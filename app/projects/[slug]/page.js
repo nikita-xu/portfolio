@@ -1,25 +1,14 @@
+import { Suspense } from "react";
+import { connection } from "next/server";
 import Link from "next/link";
 import Image from "next/image";
-import projects from "@/data/projects";
+import { getProject } from "@/lib/projects";
 
-export function generateStaticParams() {
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
-}
-
-export async function generateMetadata({ params }) {
+async function ProjectArticle({ params }) {
+  await connection();
   const { slug } = await params;
-  const project = projects.find((item) => item.slug === slug);
-
-  return {
-    title: project ? project.title : "Project Not Found",
-  };
-}
-
-export default async function ProjectPage({ params }) {
-  const { slug } = await params;
-  const project = projects.find((item) => item.slug === slug);
+  const result = await getProject(slug);
+  const project = result.ok ? result.project : null;
 
   if (!project) {
     return (
@@ -140,5 +129,22 @@ export default async function ProjectPage({ params }) {
         </div>
       )}
     </article>
+  );
+}
+
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const result = await getProject(slug);
+
+  return {
+    title: result.ok && result.project ? result.project.title : "Project Not Found",
+  };
+}
+
+export default function ProjectPage({ params }) {
+  return (
+    <Suspense fallback={<p className="page-intro">Loading project…</p>}>
+      <ProjectArticle params={params} />
+    </Suspense>
   );
 }

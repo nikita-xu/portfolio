@@ -14,7 +14,7 @@ export default function Footer() {
           <Link href="/contact-me">Contact</Link>
           <Link href="/contact-me-server-form">Contact (server form)</Link>
           <Link href="/skills">Skills</Link>
-          <Link href="/admin/blogs">Admin</Link>
+          <Link href="/admin">Admin</Link>
           <a href="https://canva.link/l341fabyggsh1ht" target="_blank" rel="noreferrer">
             Resume
           </a>

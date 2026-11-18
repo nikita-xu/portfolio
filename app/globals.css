@@ -675,6 +675,21 @@ a.tag:hover {
   color: var(--accent);
 }
 
+.admin-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.admin-section {
+  margin-top: 3rem;
+}
+
+.admin-section > h2 {
+  margin-bottom: 1.25rem;
+}
+
 .xp-timeline {
   position: relative;
   max-width: 1080px;
