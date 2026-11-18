@@ -1,9 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import AdminGate from "@/components/AdminGate";
+import { clearDraft, loadDraft, saveDraft } from "@/lib/draft-storage";
 import { createBlogPost, deleteBlogPost, fetchBlogs, updateBlogPost } from "@/lib/blog-api";
+
+const DRAFT_KEY = "admin-blog";
 
 function BlogManagerTools({ token }) {
   const [state, setState] = useState({ status: "loading" });
@@ -27,6 +30,24 @@ function BlogManagerTools({ token }) {
   useEffect(() => {
     load();
   }, [load]);
+
+  const hydrated = useRef(false);
+
+  useEffect(() => {
+    loadDraft(DRAFT_KEY).then((draft) => {
+      if (draft) {
+        setTitle(typeof draft.title === "string" ? draft.title : "");
+        setContent(typeof draft.content === "string" ? draft.content : "");
+        setEditingSlug(typeof draft.editingSlug === "string" ? draft.editingSlug : null);
+      }
+      hydrated.current = true;
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated.current) return;
+    saveDraft(DRAFT_KEY, { title, content, editingSlug });
+  }, [title, content, editingSlug]);
 
   function retry() {
     setState({ status: "loading" });
@@ -65,6 +86,7 @@ function BlogManagerTools({ token }) {
       setContent("");
       setMessage(editingSlug === null ? "Blog post published!" : "Blog post updated!");
       setEditingSlug(null);
+      clearDraft(DRAFT_KEY);
       await load();
     } else {
       setErrors(result.errors);

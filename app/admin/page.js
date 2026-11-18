@@ -1,17 +1,30 @@
-import ProjectsManager from "@/components/ProjectsManager";
-import ExperienceManager from "@/components/ExperienceManager";
-import BlogManager from "@/components/BlogManager";
-import ContactsInbox from "@/components/ContactsInbox";
+import Link from "next/link";
 
 export const metadata = {
   title: "Admin",
 };
 
 const sections = [
-  { id: "projects", label: "Projects" },
-  { id: "experiences", label: "Experiences" },
-  { id: "blogs", label: "Blogs" },
-  { id: "contacts", label: "Contacts" },
+  {
+    href: "/admin/projects",
+    label: "Projects",
+    description: "Create, edit, and delete portfolio projects.",
+  },
+  {
+    href: "/admin/experiences",
+    label: "Experiences",
+    description: "Manage the experience timeline entries.",
+  },
+  {
+    href: "/admin/blogs",
+    label: "Blogs",
+    description: "Publish and edit blog posts.",
+  },
+  {
+    href: "/admin/contacts",
+    label: "Contacts",
+    description: "Read and manage the contact inbox.",
+  },
 ];
 
 export default function AdminPage() {
@@ -19,37 +32,17 @@ export default function AdminPage() {
     <section>
       <h1 className="page-title">Admin</h1>
       <p className="page-intro">
-        Create, edit, and delete the live site content. Each section saves
-        through its own API.
+        Manage the live site content. Each area saves through its own API.
       </p>
 
-      <nav className="admin-nav" aria-label="Admin sections">
+      <div className="admin-menu">
         {sections.map((section) => (
-          <a key={section.id} href={`#${section.id}`} className="tag">
-            {section.label}
-          </a>
+          <Link key={section.href} href={section.href} className="admin-menu-button">
+            <span className="admin-menu-label">{section.label}</span>
+            <span className="admin-menu-desc">{section.description}</span>
+          </Link>
         ))}
-      </nav>
-
-      <section id="projects" className="detail-section admin-section">
-        <h2>Projects</h2>
-        <ProjectsManager />
-      </section>
-
-      <section id="experiences" className="detail-section admin-section">
-        <h2>Experiences</h2>
-        <ExperienceManager />
-      </section>
-
-      <section id="blogs" className="detail-section admin-section">
-        <h2>Blog posts</h2>
-        <BlogManager />
-      </section>
-
-      <section id="contacts" className="detail-section admin-section">
-        <h2>Contact inbox</h2>
-        <ContactsInbox />
-      </section>
+      </div>
     </section>
   );
 }

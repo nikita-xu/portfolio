@@ -682,6 +682,51 @@ a.tag:hover {
   margin-top: 1.5rem;
 }
 
+.admin-menu {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  max-width: 760px;
+  margin-top: 2rem;
+}
+
+.admin-menu-button {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 1.7rem 1.6rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.admin-menu-button:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.admin-menu-label {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.admin-menu-button:hover .admin-menu-label {
+  color: var(--accent);
+}
+
+.admin-menu-desc {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+@media (max-width: 640px) {
+  .admin-menu {
+    grid-template-columns: 1fr;
+  }
+}
+
 .admin-section {
   margin-top: 3rem;
 }

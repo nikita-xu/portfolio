@@ -1,9 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import AdminGate from "@/components/AdminGate";
+import { clearDraft, loadDraft, saveDraft } from "@/lib/draft-storage";
 import { createProject, deleteProject, fetchProjects, updateProject } from "@/lib/projects-api";
+
+const DRAFT_KEY = "admin-projects";
 
 const EMPTY_FORM = {
   title: "",
@@ -81,6 +84,24 @@ function ProjectsManagerTools({ token }) {
     load();
   }, [load]);
 
+  const hydrated = useRef(false);
+
+  useEffect(() => {
+    loadDraft(DRAFT_KEY).then((draft) => {
+      if (draft && draft.form) {
+        setForm({ ...EMPTY_FORM, ...draft.form });
+        setEditingSlug(typeof draft.editingSlug === "string" ? draft.editingSlug : null);
+        setEditingEntry(draft.editingEntry ?? null);
+      }
+      hydrated.current = true;
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated.current) return;
+    saveDraft(DRAFT_KEY, { form, editingSlug, editingEntry });
+  }, [form, editingSlug, editingEntry]);
+
   function retry() {
     setState({ status: "loading" });
     load();
@@ -123,6 +144,7 @@ function ProjectsManagerTools({ token }) {
       setMessage(editingSlug === null ? "Project published!" : "Project updated!");
       setEditingSlug(null);
       setEditingEntry(null);
+      clearDraft(DRAFT_KEY);
       await load();
     } else {
       setErrors(result.errors);

@@ -1,14 +1,17 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import AdminGate from "@/components/AdminGate";
 import ExperienceCard from "@/components/ExperienceCard";
+import { clearDraft, loadDraft, saveDraft } from "@/lib/draft-storage";
 import {
   createExperience,
   deleteExperience,
   fetchExperiences,
   updateExperience,
 } from "@/lib/experience-api";
+
+const DRAFT_KEY = "admin-experience";
 
 const emptyForm = {
   role: "",
@@ -86,6 +89,23 @@ function ExperienceManagerTools({ token }) {
     load();
   }, [load]);
 
+  const hydrated = useRef(false);
+
+  useEffect(() => {
+    loadDraft(DRAFT_KEY).then((draft) => {
+      if (draft && draft.form) {
+        setForm({ ...emptyForm, ...draft.form });
+        setEditingId(draft.editingId ?? null);
+      }
+      hydrated.current = true;
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated.current) return;
+    saveDraft(DRAFT_KEY, { form, editingId });
+  }, [form, editingId]);
+
   function retry() {
     setState({ status: "loading" });
     load();
@@ -124,6 +144,7 @@ function ExperienceManagerTools({ token }) {
       setSaved(editingId === null ? "Experience added." : "Experience updated.");
       setEditingId(null);
       setForm(emptyForm);
+      clearDraft(DRAFT_KEY);
       await load();
     } else {
       setErrors(result.errors);
