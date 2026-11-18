@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "id": 1,
+    "slug": "my-part-2-walkthrough",
+    "title": "My part 2 walkthrough",
+    "content": "Walking through",
+    "createdAt": "2026-11-14T18:45:07-08:00"
+  },
+  {
+    "id": 2,
+    "slug": "test1",
+    "title": "Test1",
+    "content": "Testing blog",
+    "createdAt": "2026-11-14T18:45:46-08:00"
+  },
+  {
+    "id": 3,
+    "slug": "sample-new-blog",
+    "title": "Sample New Blog",
+    "content": "Blog post demonstration",
+    "createdAt": "2026-11-14T19:13:51-08:00"
+  }
+]
