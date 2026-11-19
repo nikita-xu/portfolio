@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { deleteExperience, getExperience, updateExperience, validateExperience } from "@/lib/experience";
+import { deleteExperience, getExperience, updateExperience, validateExperienceWithProjects } from "@/lib/experience";
 import { logApiRequest, readJsonBody } from "@/lib/http";
 import { checkAdminToken } from "@/lib/authorize";
 
@@ -61,7 +61,7 @@ export async function PUT(request, { params }) {
     return NextResponse.json({ errors: { form: parsed.failure } }, { status: 400 });
   }
 
-  const { errors, values } = validateExperience(parsed.body);
+  const { errors, values } = await validateExperienceWithProjects(parsed.body);
 
   if (Object.keys(errors).length > 0) {
     logApiRequest("PUT", `/api/experiences/${raw}`, 400);

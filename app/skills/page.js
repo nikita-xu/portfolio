@@ -10,8 +10,8 @@ export default function SkillsPage() {
     <section>
       <h1 className="page-title">Skills</h1>
       <p className="page-intro">
-        Beyond data and code, these are the creative skills I have been
-        developing. Click a card to see the work.
+        The skills I have been developing — from coding and data analytics to
+        creative work. Click a card to see the details.
       </p>
       <div className="card-grid">
         {skills.map((skill) => (

@@ -15,7 +15,8 @@
     ],
     "skills": [],
     "image": "",
-    "createdAt": "2026-11-17T20:15:54-08:00"
+    "createdAt": "2026-11-17T20:15:54-08:00",
+    "projectSlug": "uber-vendor-portal"
   },
   {
     "id": 2,
@@ -66,11 +67,10 @@
       "Supported management of 25+ affiliated running communities with 4,600+ members, strengthening outreach and brand engagement.",
       "Independently led planning and execution of a HOKA x TREK running and cycling event, driving cross-brand collaboration and omni-channel marketing."
     ],
-    "skills": [
-      "photo-video"
-    ],
+    "skills": [],
     "image": "/images/event-execution/f855261e607f9cbfe4f929d9bf0bd869.jpg",
-    "createdAt": "2026-11-17T20:15:54-08:00"
+    "createdAt": "2026-11-17T20:15:54-08:00",
+    "projectSlug": "event-execution"
   },
   {
     "id": 5,

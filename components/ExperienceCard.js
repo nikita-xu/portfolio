@@ -79,6 +79,14 @@ export default function ExperienceCard({ entry }) {
               </div>
             )}
 
+            {entry.projectSlug && (
+              <div className="xp-project">
+                <Link href={`/projects/${entry.projectSlug}`} className="button">
+                  View project
+                </Link>
+              </div>
+            )}
+
             {entry.image && (
               <img
                 src={entry.image}

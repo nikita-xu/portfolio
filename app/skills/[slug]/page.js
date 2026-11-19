@@ -1,6 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import skills from "@/data/skills";
+import projects from "@/data/projects.json";
+
+const projectsBySlug = Object.fromEntries(
+  projects.map((project) => [project.slug, project])
+);
 
 export function generateStaticParams() {
   return skills.map((skill) => ({
@@ -48,6 +53,41 @@ export default async function SkillPage({ params }) {
           <p key={index}>{paragraph}</p>
         ))}
       </section>
+
+      {skill.tools && skill.tools.length > 0 && (
+        <section className="detail-section">
+          <h2>Tools &amp; related projects</h2>
+          <ul className="skill-tool-list">
+            {skill.tools.map((tool) => {
+              const slugs = skill.toolProjects?.[tool] ?? [];
+              const matches = slugs
+                .map((slug) => projectsBySlug[slug])
+                .filter(Boolean);
+
+              return (
+                <li key={tool} className="skill-tool-row">
+                  <span className="skill-tool-name">{tool}</span>
+                  {matches.length > 0 ? (
+                    <span className="skill-tool-projects">
+                      {matches.map((project) => (
+                        <Link
+                          key={project.slug}
+                          href={`/projects/${project.slug}`}
+                          className="text-link"
+                        >
+                          {project.title}
+                        </Link>
+                      ))}
+                    </span>
+                  ) : (
+                    <span className="skill-tool-none">No project yet</span>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
 
       {skill.sections.map((section) => (
         <section key={section.heading} className="detail-section">

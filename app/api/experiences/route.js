@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createExperience, listExperiences, validateExperience } from "@/lib/experience";
+import { createExperience, listExperiences, validateExperienceWithProjects } from "@/lib/experience";
 import { logApiRequest, readJsonBody } from "@/lib/http";
 import { checkAdminToken } from "@/lib/authorize";
 
@@ -30,7 +30,7 @@ export async function POST(request) {
     return NextResponse.json({ errors: { form: parsed.failure } }, { status: 400 });
   }
 
-  const { errors, values } = validateExperience(parsed.body);
+  const { errors, values } = await validateExperienceWithProjects(parsed.body);
 
   if (Object.keys(errors).length > 0) {
     logApiRequest("POST", "/api/experiences", 400);

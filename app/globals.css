@@ -946,6 +946,53 @@ a.tag:hover {
   margin: 0 1.25rem 0.9rem;
 }
 
+.xp-project {
+  margin: 0 1.25rem 0.9rem;
+}
+
+.skill-tool-list {
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.skill-tool-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.9rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.skill-tool-name {
+  font-weight: 700;
+  color: var(--text);
+  min-width: 180px;
+}
+
+.skill-tool-projects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.1rem;
+}
+
+.skill-tool-projects .text-link {
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+
+.skill-tool-projects .text-link:hover {
+  color: var(--accent-soft);
+}
+
+.skill-tool-none {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-style: italic;
+}
+
 .xp-image {
   display: block;
   width: calc(100% - 2.5rem);

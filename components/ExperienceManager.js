@@ -25,6 +25,7 @@ const emptyForm = {
   highlightsText: "",
   skillsText: "",
   image: "",
+  projectSlug: "",
 };
 
 function formToValues(form) {
@@ -45,6 +46,7 @@ function formToValues(form) {
       .map((part) => part.trim())
       .filter(Boolean),
     image: form.image,
+    projectSlug: form.projectSlug,
   };
 }
 
@@ -61,6 +63,7 @@ function entryToForm(entry) {
     highlightsText: (entry.highlights ?? []).join("\n"),
     skillsText: (entry.skills ?? []).join(", "),
     image: entry.image ?? "",
+    projectSlug: entry.projectSlug ?? "",
   };
 }
 
@@ -303,7 +306,7 @@ function ExperienceManagerTools({ token }) {
             type="text"
             value={form.skillsText}
             onChange={(event) => update("skillsText", event.target.value)}
-            placeholder="photo-video, adobe-creative-cloud"
+            placeholder="photo-video, adobe-creative-cloud, coding-analytics"
             className={errors.skills ? "input-invalid" : ""}
           />
           {errors.skills && <p className="field-error">{errors.skills}</p>}
@@ -320,6 +323,19 @@ function ExperienceManagerTools({ token }) {
             className={errors.image ? "input-invalid" : ""}
           />
           {errors.image && <p className="field-error">{errors.image}</p>}
+        </div>
+
+        <div className="field">
+          <label htmlFor="experience-project">Project link slug (optional)</label>
+          <input
+            id="experience-project"
+            type="text"
+            value={form.projectSlug}
+            onChange={(event) => update("projectSlug", event.target.value)}
+            placeholder="event-execution"
+            className={errors.projectSlug ? "input-invalid" : ""}
+          />
+          {errors.projectSlug && <p className="field-error">{errors.projectSlug}</p>}
         </div>
 
         <button type="submit" className="button" disabled={isSaving}>

@@ -56,6 +56,40 @@ const skills = [
     ],
   },
   {
+    slug: "coding-analytics",
+    title: "Coding & Data Analytics",
+    shortDescription:
+      "Programming and analytics toolkit: Python, SQL, R, Tableau, Excel, machine learning, and data visualization.",
+    summary: [
+      "The coding and analytics stack I use across my coursework and projects — Python for analysis, modeling, and tooling, SQL and R for data work, Tableau and Excel for dashboards and reporting, plus machine learning and data visualization.",
+    ],
+    tools: [
+      "Python",
+      "SQL",
+      "R",
+      "Tableau",
+      "Excel",
+      "Machine Learning",
+      "Data Visualization",
+    ],
+    toolProjects: {
+      Python: [
+        "uber-vendor-portal",
+        "products_inventory_cli",
+        "greencity-logistics-mip",
+        "airbnb-market-analysis",
+        "california-traffic-collision",
+      ],
+      "Machine Learning": ["airbnb-market-analysis"],
+      "Data Visualization": [
+        "greencity-logistics-mip",
+        "airbnb-market-analysis",
+        "california-traffic-collision",
+      ],
+    },
+    sections: [],
+  },
+  {
     slug: "adobe-creative-cloud",
     title: "Adobe Creative Cloud",
     shortDescription:
