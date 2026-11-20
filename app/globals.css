@@ -789,6 +789,41 @@ a.tag:hover {
   box-shadow: 0 0 0 4px rgba(169, 201, 218, 0.16);
 }
 
+.xp-year {
+  position: absolute;
+  top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.xp-item:nth-child(odd) .xp-year {
+  left: calc(100% + 58px);
+  align-items: flex-start;
+}
+
+.xp-item:nth-child(even) .xp-year {
+  right: calc(100% + 58px);
+  align-items: flex-end;
+}
+
+.xp-year-range {
+  color: var(--text);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.xp-year-length {
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .xp-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -1024,6 +1059,16 @@ a.tag:hover {
   .xp-item:nth-child(even) .xp-marker {
     right: auto;
     left: -30.5px;
+  }
+
+  .xp-year {
+    display: none;
+  }
+
+  .xp-dates {
+    color: var(--text);
+    font-size: 0.85rem;
+    font-weight: 700;
   }
 }
 
