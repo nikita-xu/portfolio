@@ -24,48 +24,13 @@ function monthLabel(value) {
   return `${MONTHS[Number(match[2]) - 1]} ${match[1]}`;
 }
 
-function durationLabel(entry) {
-  const start = /^(\d{4})-(\d{2})$/.exec(entry.startDate ?? "");
-  if (!start) return "";
+export default function ExperienceCard({ entry }) {  const [expanded, setExpanded] = useState(false);
 
-  const now = new Date();
-  const end =
-    entry.endDate === "Present"
-      ? [now.getFullYear(), now.getMonth() + 1]
-      : /^(\d{4})-(\d{2})$/
-          .exec(entry.endDate ?? "")
-          ?.slice(1)
-          .map(Number);
-
-  if (!end) return "";
-
-  const months = Math.max(
-    1,
-    (Number(end[0]) - Number(start[1])) * 12 +
-      (end[1] - Number(start[2])) +
-      1
-  );
-  const years = Math.floor(months / 12);
-  const rest = months % 12;
-
-  return [
-    years > 0 ? `${years} yr${years > 1 ? "s" : ""}` : "",
-    rest > 0 ? `${rest} mo${rest > 1 ? "s" : ""}` : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-}
-
-export default function ExperienceCard({ entry }) {
-  const [expanded, setExpanded] = useState(false);
-
-  const range =
+  const dates =
     entry.endDate === "Present"
       ? `${monthLabel(entry.startDate)} – Present`
       : `${monthLabel(entry.startDate)} – ${monthLabel(entry.endDate)}`;
 
-  const duration = durationLabel(entry);
-  const dates = duration ? `${range} · ${duration}` : range;
   const startYear = entry.startDate?.slice(0, 4);
   const kind = entry.category === "Education" ? "education" : "work";
 
