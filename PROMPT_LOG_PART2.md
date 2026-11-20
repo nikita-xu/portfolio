@@ -113,6 +113,11 @@ Part 2 of the assignment adds the API contact form, the blog system (API, public
 - **Resulting change:** The token gate disabled in entry 13 was restored from git history (`lib/authorize.js` and `components/AdminGate.js` back to their token-checking versions — the API routes never stopped calling `checkAdminToken`, so every write is enforced again: missing or wrong `Bearer` tokens get 401). One real fix was needed: the restored `AdminGate` called its `children` as a render prop (`children(token)`, how the four manager components use it), but the hub page from entry 18 passes plain elements — the gate now supports both (`typeof children === "function" ? children(token) : children`), and `/admin` wraps its four section buttons in the gate so the dashboard itself is locked, not just the section pages. Nothing else in the portfolio changed.
 - **Verification:** Chrome + fetch test: without a token the hub shows only the token prompt (zero tiles); the API rejects missing and wrong tokens with 401; a wrong token still opens the form UI by design (the server is the enforcer) but every save fails and no data changes; "Lock admin tools" clears the session token; the real `ADMIN_TOKEN` unlocks the hub (4 tiles) and all four section managers, which then save successfully. Lint passes.
 
+### 23. Admin hub buttons trimmed to labels only
+- **My prompt:** "remove the description on the Admin page."
+- **Resulting change:** The four section buttons on `/admin` now show only their labels (Projects, Experiences, Blogs, Contacts) — the small gray description line inside each tile was removed, along with its now-unused `.admin-menu-desc` style. The page intro and everything else are untouched.
+- **Verification:** Chrome test: the hub renders exactly four label-only buttons, zero description elements; the token gate still locks and unlocks the page as in entry 22. Lint passes.
+
 ---
 
 ## Part 2 — Review examples

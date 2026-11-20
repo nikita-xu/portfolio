@@ -9,22 +9,18 @@ const sections = [
   {
     href: "/admin/projects",
     label: "Projects",
-    description: "Create, edit, and delete portfolio projects.",
   },
   {
     href: "/admin/experiences",
     label: "Experiences",
-    description: "Manage the experience timeline entries.",
   },
   {
     href: "/admin/blogs",
     label: "Blogs",
-    description: "Publish and edit blog posts.",
   },
   {
     href: "/admin/contacts",
     label: "Contacts",
-    description: "Read and manage the contact inbox.",
   },
 ];
 
@@ -41,7 +37,6 @@ export default function AdminPage() {
           {sections.map((section) => (
             <Link key={section.href} href={section.href} className="admin-menu-button">
               <span className="admin-menu-label">{section.label}</span>
-              <span className="admin-menu-desc">{section.description}</span>
             </Link>
           ))}
         </div>
