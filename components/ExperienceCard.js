@@ -24,19 +24,6 @@ function monthLabel(value) {
   return `${MONTHS[Number(match[2]) - 1]} ${match[1]}`;
 }
 
-function yearLabel(entry) {
-  const start = /^(\d{4})/.exec(entry.startDate ?? "");
-  if (!start) return "";
-  const end =
-    entry.endDate === "Present"
-      ? "Present"
-      : /^(\d{4})/.exec(entry.endDate ?? "")?.[1];
-
-  if (!end || end === start[1]) return start[1];
-
-  return `${start[1]} – ${end}`;
-}
-
 function durationLabel(entry) {
   const start = /^(\d{4})-(\d{2})$/.exec(entry.startDate ?? "");
   if (!start) return "";
@@ -72,23 +59,23 @@ function durationLabel(entry) {
 export default function ExperienceCard({ entry }) {
   const [expanded, setExpanded] = useState(false);
 
-  const dates =
+  const range =
     entry.endDate === "Present"
       ? `${monthLabel(entry.startDate)} – Present`
       : `${monthLabel(entry.startDate)} – ${monthLabel(entry.endDate)}`;
 
-  const years = yearLabel(entry);
   const duration = durationLabel(entry);
+  const dates = duration ? `${range} · ${duration}` : range;
+  const startYear = entry.startDate?.slice(0, 4);
   const kind = entry.category === "Education" ? "education" : "work";
 
   return (
     <article className={`xp-item xp-${kind}${expanded ? " is-open" : ""}`}>
       <span className="xp-marker" aria-hidden="true" />
 
-      {years && (
+      {startYear && (
         <span className="xp-year" aria-hidden="true">
-          <span className="xp-year-range">{years}</span>
-          {duration && <span className="xp-year-length">{duration}</span>}
+          <span className="xp-year-range">{startYear}</span>
         </span>
       )}
 

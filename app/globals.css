@@ -809,18 +809,9 @@ a.tag:hover {
 
 .xp-year-range {
   color: var(--text);
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 800;
   letter-spacing: 0.02em;
-  white-space: nowrap;
-}
-
-.xp-year-length {
-  color: var(--accent);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
   white-space: nowrap;
 }
 
