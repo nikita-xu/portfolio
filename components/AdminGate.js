@@ -7,18 +7,70 @@ export default function AdminGate({ children }) {
   const [ready, setReady] = useState(false);
   const [draft, setDraft] = useState("");
   const [error, setError] = useState("");
+  const [checking, setChecking] = useState(false);
+
+  function verifyToken(candidate) {
+    return fetch("/api/admin/verify", {
+      headers: { Authorization: `Bearer ${candidate}` },
+    }).then((response) => response.ok);
+  }
 
   useEffect(() => {
-    Promise.resolve().then(() => {
+    let cancelled = false;
+
+    Promise.resolve().then(async () => {
       const stored = window.sessionStorage.getItem("admin-token");
 
       if (stored) {
-        setToken(stored);
+        const valid = await verifyToken(stored);
+
+        if (cancelled) return;
+
+        if (valid) {
+          setToken(stored);
+        } else {
+          window.sessionStorage.removeItem("admin-token");
+        }
       }
 
-      setReady(true);
+      if (!cancelled) {
+        setReady(true);
+      }
     });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
+
+  async function unlock(event) {
+    event.preventDefault();
+
+    const candidate = draft.trim();
+
+    if (!candidate) {
+      setError("Please enter the admin token.");
+      return;
+    }
+
+    setError("");
+    setChecking(true);
+
+    try {
+      const valid = await verifyToken(candidate);
+
+      if (valid) {
+        setToken(candidate);
+        window.sessionStorage.setItem("admin-token", candidate);
+      } else {
+        setError("Invalid admin token.");
+      }
+    } catch {
+      setError("Could not reach the server. Please try again.");
+    } finally {
+      setChecking(false);
+    }
+  }
 
   if (!ready) {
     return null;
@@ -48,16 +100,7 @@ export default function AdminGate({ children }) {
     <form
       className="contact-form admin-form"
       onSubmit={(event) => {
-        event.preventDefault();
-
-        if (!draft.trim()) {
-          setError("Please enter the admin token.");
-          return;
-        }
-
-        setError("");
-        setToken(draft.trim());
-        window.sessionStorage.setItem("admin-token", draft.trim());
+        unlock(event);
       }}
       noValidate
     >
@@ -74,8 +117,8 @@ export default function AdminGate({ children }) {
         />
       </div>
 
-      <button type="submit" className="button">
-        Unlock admin tools
+      <button type="submit" className="button" disabled={checking}>
+        {checking ? "Checking..." : "Unlock admin tools"}
       </button>
     </form>
   );
