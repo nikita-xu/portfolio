@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AdminGate from "@/components/AdminGate";
 
 export const metadata = {
   title: "Admin",
@@ -35,14 +36,16 @@ export default function AdminPage() {
         Manage the live site content. Each area saves through its own API.
       </p>
 
-      <div className="admin-menu">
-        {sections.map((section) => (
-          <Link key={section.href} href={section.href} className="admin-menu-button">
-            <span className="admin-menu-label">{section.label}</span>
-            <span className="admin-menu-desc">{section.description}</span>
-          </Link>
-        ))}
-      </div>
+      <AdminGate>
+        <div className="admin-menu">
+          {sections.map((section) => (
+            <Link key={section.href} href={section.href} className="admin-menu-button">
+              <span className="admin-menu-label">{section.label}</span>
+              <span className="admin-menu-desc">{section.description}</span>
+            </Link>
+          ))}
+        </div>
+      </AdminGate>
     </section>
   );
 }
