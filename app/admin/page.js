@@ -28,9 +28,6 @@ export default function AdminPage() {
   return (
     <section>
       <h1 className="page-title">Admin</h1>
-      <p className="page-intro">
-        Manage the live site content. Each area saves through its own API.
-      </p>
 
       <AdminGate>
         <div className="admin-menu">

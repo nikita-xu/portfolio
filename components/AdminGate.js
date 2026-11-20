@@ -61,12 +61,6 @@ export default function AdminGate({ children }) {
       }}
       noValidate
     >
-      <p className="page-intro">
-        This tool changes live site data, so it needs the server&apos;s admin
-        token. The token is the ADMIN_TOKEN value from the server environment —
-        it is checked on every save and never stored on the site itself.
-      </p>
-
       {error && <p className="field-error">{error}</p>}
 
       <div className="field">

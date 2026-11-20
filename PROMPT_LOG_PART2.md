@@ -114,9 +114,9 @@ Part 2 of the assignment adds the API contact form, the blog system (API, public
 - **Verification:** Chrome + fetch test: without a token the hub shows only the token prompt (zero tiles); the API rejects missing and wrong tokens with 401; a wrong token still opens the form UI by design (the server is the enforcer) but every save fails and no data changes; "Lock admin tools" clears the session token; the real `ADMIN_TOKEN` unlocks the hub (4 tiles) and all four section managers, which then save successfully. Lint passes.
 
 ### 23. Admin hub buttons trimmed to labels only
-- **My prompt:** "remove the description on the Admin page."
-- **Resulting change:** The four section buttons on `/admin` now show only their labels (Projects, Experiences, Blogs, Contacts) — the small gray description line inside each tile was removed, along with its now-unused `.admin-menu-desc` style. The page intro and everything else are untouched.
-- **Verification:** Chrome test: the hub renders exactly four label-only buttons, zero description elements; the token gate still locks and unlocks the page as in entry 22. Lint passes.
+- **My prompt:** "remove the description on the Admin page." then "remove this description on the page 'Manage the live site content. Each area saves through its own API. This tool changes live site data, so it needs the server's admin token. The token is the ADMIN_TOKEN value from the server environment — it is checked on every save and never stored on the site itself.'"
+- **Resulting change:** The `/admin` hub is now heading + four label-only buttons: the page intro line ("Manage the live site content…") was removed, and the token-gate paragraph ("This tool changes live site data…") was removed from `AdminGate`, which now shows just the token field, the unlock button, and any validation error. The tile descriptions and their CSS were already removed in the first step.
+- **Verification:** Chrome test: neither description string appears anywhere on `/admin`; the token prompt still locks the page, and `nikitaadmin` unlocks the four-button hub. Lint passes.
 
 ---
 
